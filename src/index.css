@@ -1,0 +1,469 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a,
+body,
+div,
+em,
+fieldset,
+form,
+h1,
+h2,
+h3,
+html,
+iframe,
+img,
+label,
+li,
+p,
+span,
+ul {
+  border: 0
+}
+
+
+body,
+button,
+input {
+  line-height: normal
+}
+
+canvas {
+  display: inline-block;
+  vertical-align: baseline
+}
+
+:focus,
+a:active,
+a:hover {
+  outline: 0
+}
+
+img {
+  text-indent: -9999px
+}
+
+svg:not(:root) {
+  overflow: hidden
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  font-size: 100%;
+  margin: 0;
+  vertical-align: middle;
+  /* border: none */
+}
+
+a,
+body,
+div,
+em,
+fieldset,
+form,
+h1,
+h2,
+h3,
+html,
+iframe,
+img,
+label,
+li,
+p,
+span,
+ul {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: 0 0;
+  outline: 0,
+}
+
+button {
+  overflow: visible;
+  border: none;
+  background: 0 0;
+  padding: 0;
+  margin: 0
+}
+
+button,
+select {
+  text-transform: none
+}
+
+button,
+html input[type=button],
+input[type=reset],
+input[type=submit] {
+  -webkit-appearance: button;
+  cursor: pointer
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 1px solid #d1d1d1;
+  padding: 0
+}
+
+input {
+  padding: 0;
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0
+}
+
+input[type=search] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box
+}
+
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none
+}
+
+textarea {
+  overflow: auto;
+  resize: none
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%
+}
+
+a {
+  text-decoration: none;
+  /* color: #000 */
+}
+
+a:hover {
+  /* color: #000; */
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+
+li,
+ol,
+ul {
+  list-style: none
+}
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+*,
+:after,
+:before {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: '';
+  display: table
+}
+
+.clearfix:after {
+  clear: both
+}
+
+body {
+  font-size: 14px
+}
+
+.transitionAll * {
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  position: relative;
+  height: 100vh;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.bgblack {
+  background-color: #000 !important;
+  opacity: 1 !important;
+}
+
+/* ================================================================= */
+
+.wrapper .wp-modal {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  transform: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wp-modal .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #181818;
+  opacity: .85;
+  height: 100%;
+  width: 100%;
+}
+
+.wp-modal .modal-container {
+  width: 100%;
+  position: relative;
+}
+
+.modal-container .modal-content {
+  max-width: 440px;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.modal-content .header button {
+  position: absolute;
+  right: 3%;
+  top: 3%
+}
+
+.modal-content .content {
+  padding: 42px 45px;
+}
+
+.modal-content .content .title {
+  margin: 0 0 36px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -.8px;
+}
+
+.modal-content .body .form input {
+  border: none;
+  background-color: #f1f1f1;
+  outline: none;
+  padding: 10px;
+}
+
+.dropdown a {
+  cursor: pointer;
+}
+
+.dropdown:hover ul {
+  display: block;
+  right: 0
+}
+
+
+.main-content {
+  height: auto;
+  min-height: 100vh;
+  padding: 45px 0;
+}
+
+.bg-gray {
+  background-color: #f1f1f1;
+}
+
+.create-post {
+  max-width: 900px;
+  height: auto;
+  min-height: 80vh;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 16px;
+}
+
+.post .body .form textarea,
+.post .body .form input {
+  padding: 15px 10px 8px 10px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.post .body .form input[type="text"] {
+  font-size: 30px !important;
+  font-weight: bold;
+}
+
+.img-uploader {
+  max-width: 350px;
+}
+
+.img-uploader ul>li {
+  display: inline-block;
+  position: relative;
+}
+
+.img-uploader ul>li>button {
+  position: absolute;
+  top: 45%;
+  left: 2%;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.input-file {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  display: block;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.input-file ins {
+  white-space: nowrap;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.input-file:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.input-file input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  top: -100px;
+  z-index: -1;
+}
+
+.profile .header {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.profile .avatar {
+  border-radius: 50%;
+  width: 156px;
+  height: 156px;
+  overflow: hidden;
+}
+
+.profile .header ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile .header ul li {
+  margin-bottom: .6rem;
+}
+
+.profile .header ul li h3 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.profile .header ul li p {
+  font-size: 16px;
+  color: #767676
+}
+
+.profile .follows a {
+  color: #767676;
+  margin: 0 10px;
+  font-weight: bold;
+  transition: 0.4s all;
+}
+
+.profile .follows a:hover {
+  color: #000;
+}
+
+.profile ul li button {
+  background-color: #767676;
+  padding: 10px 20px;
+  color: #f1f1f1;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.profile .content .nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 0 25px;
+}
+
+.profile .content .nav button {
+  margin: 0 20px;
+  font-size: 20px;
+  padding-bottom: 4px;
+}
+
+.selected {
+  border-bottom: 3px solid #767676;
+}
+
+.collections .item {
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0 auto 20px;
+}
