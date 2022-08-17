@@ -4,6 +4,7 @@ import Login from "../pages/login/login";
 import SignUp from "../pages/signup/signup";
 import CreatePost from "../pages/createPost/createPost";
 import Profile from "../pages/profile/profile";
+import VerifyAccount from "../pages/verifyAccount/verifyAccount";
 
 const appRoutes = [
   {
@@ -40,6 +41,13 @@ const appRoutes = [
     notProtected: true,
     exact: true,
     component: Profile,
+  },
+  {
+    description: "Verify Account",
+    path: Router.verifyAccount,
+    notProtected: true,
+    exact: true,
+    component: VerifyAccount,
   }
 ];
 

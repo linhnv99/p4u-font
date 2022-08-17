@@ -233,6 +233,10 @@ code {
   opacity: 1 !important;
 }
 
+.Toastify__toast-container--top-right {
+  z-index: 9999999!important;
+}
+
 /* ================================================================= */
 
 .wrapper .wp-modal {

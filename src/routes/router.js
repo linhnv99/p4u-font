@@ -5,6 +5,8 @@ const routes = {
   verifyCode: "/verify-code",
   createPost: "/create-post",
   profile: "/profile",
+  verifyAccount: "/verify-account",
+  news: "/news",
 };
 
 // format route: /route/:id => route/1

@@ -2,6 +2,7 @@ import { UserConst } from "../../constants";
 const initState = {
   me: {},
   error: "",
+  isLogin: false,
 };
 const userReducers = (state = initState, action) => {
   const { type, payload } = action;
@@ -10,6 +11,7 @@ const userReducers = (state = initState, action) => {
       return {
         ...state,
         me: payload,
+        isLogin: true
       };
     case UserConst.GET_ME_FAIL:
       return {

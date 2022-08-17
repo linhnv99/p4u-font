@@ -57,7 +57,7 @@ function Profile() {
                 </div>
                 <div className="col-12 col-md-3">
                   <div className="item">
-                    <img className="img-fluid" src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg" />
+                    <img className="img-fluid" src="https://drive.google.com/uc?export=view&id=1vGqtSZ7A2Ohe_FSDc_dvKSmRPg6okVt0" />
                   </div>
                 </div>
                 <div className="col-12 col-md-3">

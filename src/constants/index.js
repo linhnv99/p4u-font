@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.present4u.fun";
+export const BASE_URL = "http://localhost:8080";
 
 export const NotifyConst = {
   SUCCESS: "NOTIFICATION_SUCCESS",
