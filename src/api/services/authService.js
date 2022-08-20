@@ -12,8 +12,6 @@ const verifyCode = (args) => AxiosInstance.post("/users/otp-verifier", args);
 
 const requestOTP = (args) => AxiosInstance.post("/users/otp-requester", args);
 
-const randomImage = () => AxiosInstance.get("/image-random");
-
 export const authService = {
   login,
   signUp,
@@ -21,5 +19,4 @@ export const authService = {
   verifyCode,
   loginByToken,
   requestOTP,
-  randomImage
 };

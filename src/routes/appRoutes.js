@@ -1,10 +1,10 @@
 import Router from "./router";
-import Home from '../pages/home/home.js'
-import Login from "../pages/login/login";
-import SignUp from "../pages/signup/signup";
-import CreatePost from "../pages/createPost/createPost";
-import Profile from "../pages/profile/profile";
-import VerifyAccount from "../pages/verifyAccount/verifyAccount";
+import Home from "../pages/home/index.js";
+import Login from "../pages/login";
+import SignUp from "../pages/signup";
+import CreatePost from "../pages/createPost";
+import Profile from "../pages/profile";
+import VerifyAccount from "../pages/verifyAccount";
 
 const appRoutes = [
   {
@@ -31,14 +31,14 @@ const appRoutes = [
   {
     description: "Create Post",
     path: Router.createPost,
-    notProtected: true,
+    // notProtected: false,
     exact: true,
     component: CreatePost,
   },
   {
     description: "Profile",
     path: Router.profile,
-    notProtected: true,
+    // notProtected: false,
     exact: true,
     component: Profile,
   },
@@ -48,7 +48,7 @@ const appRoutes = [
     notProtected: true,
     exact: true,
     component: VerifyAccount,
-  }
+  },
 ];
 
 export default appRoutes;

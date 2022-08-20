@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Auth from "../../api/auth";
-import Login from "../../pages/login/login";
-import SignUp from "../../pages/signup/signup";
+import Login from "../../pages/login";
+import SignUp from "../../pages/signup";
 import { useHistory } from "react-router-dom";
 import Router from "../../routes/router";
 import userActions from "../../store/actions/userActions";
@@ -41,7 +40,10 @@ const DefaultLayout = ({ children }) => {
             {auth.isLogin && (
               <>
                 <div className="me-3">
-                  <button className="text-black" onClick={() => history.push(Router.createPost)}>
+                  <button
+                    className="text-black"
+                    onClick={() => history.push(Router.createPost)}
+                  >
                     <i className="fas fa-plus fa-2x"></i>
                   </button>
                 </div>

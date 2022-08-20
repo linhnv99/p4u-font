@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Auth from "../../api/auth";
 import Router from "../../routes/router";
 import Toaster from "../../utils/toaster";
+import { getErrorMessage } from "../../errors";
 
 function VerifyAccount({ location: { search } }) {
   const history = useHistory();
@@ -20,13 +21,7 @@ function VerifyAccount({ location: { search } }) {
         Auth.setToken(response.data.accessToken);
         history.push(Router.home);
       } catch (error) {
-        if (error.data.code === 405) {
-          setErrorToken(
-            "Đường dẫn không hợp lệ hoặc đã hết hạn. Vui lòng thử lại!"
-          );
-          return;
-        }
-        setErrorToken("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+        setErrorToken(getErrorMessage(error.data.code));
       }
     };
     if (token) {
@@ -48,16 +43,7 @@ function VerifyAccount({ location: { search } }) {
           Toaster.info("Vui lòng kiểm tra email của bạn để hoàn tất xác thực!");
         }
       } catch (error) {
-        const { code } = error.data;
-        if (code === 408) {
-          Toaster.info("Email không tồn tại. Vui lòng thử lại!");
-          return;
-        }
-        if (code === 407) {
-          Toaster.info("Tài khoản đã được xác thực!");
-          return;
-        }
-        setError("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+        Toaster.error(getErrorMessage(error.data.code), 2000);
       }
     };
 

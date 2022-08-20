@@ -1,7 +1,8 @@
 import AxiosInstance from '../api/axios'
 import { useEffect, useState } from "react";
+import { BASE_URL } from '../constants';
 
-export const useAxios = ({ url, args, method = "get" }) => {
+export const useAxios = ({ path, method = "get" }, args) => {
   const [{ loading, error, data }, setState] = useState({
     loading: true,
     error: null,
@@ -13,7 +14,7 @@ export const useAxios = ({ url, args, method = "get" }) => {
       try {
         const response = await AxiosInstance({
           method,
-          url,
+          url: BASE_URL + path,
           data: args,
         });
         setState({
@@ -23,12 +24,11 @@ export const useAxios = ({ url, args, method = "get" }) => {
       } catch (error) {
         setState({
           loading: false,
-          error: "ERROR",
+          error: error,
         });
       }
     };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { loading, error, data };

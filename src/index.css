@@ -251,8 +251,8 @@ code {
   align-items: center;
 }
 
-.wp-modal .overlay {
-  position: absolute;
+.overlay {
+  position: fixed;
   top: 0;
   left: 0;
   background-color: #181818;
@@ -338,6 +338,12 @@ code {
 .post .body .form input[type="text"] {
   font-size: 30px !important;
   font-weight: bold;
+}
+
+.post .body .form select {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  color: #757575;
 }
 
 .img-uploader {

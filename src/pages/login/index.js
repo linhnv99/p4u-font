@@ -5,6 +5,7 @@ import Router from "../../routes/router";
 import Toaster from "../../utils/toaster";
 import services from "../../api/services";
 import Auth from "../../api/auth";
+import { getErrorMessage } from "../../errors";
 
 function Login({ isShow, onClose }) {
   const history = useHistory();
@@ -15,11 +16,7 @@ function Login({ isShow, onClose }) {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    if (!username || !password) {
-      setError({
-        username: username ? "" : "Username is required",
-        password: password ? "" : "Password is required",
-      });
+    if (!validateUsername(username) || !validatePassword(password)) {
       return;
     }
 
@@ -32,41 +29,33 @@ function Login({ isShow, onClose }) {
 
         if (response.code === 200) {
           Auth.setToken(response.data.accessToken);
-          history.push(Router.news);
+          history.push(Router.newsFeed);
         }
       } catch (error) {
-        const { code } = error.data;
-        if (code === 402 || code === 403) {
-          Toaster.error(
-            "Tên tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại!",
-            2000
-          );
-          return;
-        }
-        Toaster.error("Đã xảy ra lỗi. Vui lòng thử lại sau.", 2000);
+        Toaster.error(getErrorMessage(error.data.code), 2000);
       }
     };
     fetchData();
   };
 
-  const validateUsername = (e) => {
-    const username = e.target.value;
-    if (username.trim().length == 0) {
+  const validateUsername = (username) => {
+    if (!username) {
       setError({ ...error, username: "Username is required" });
-      return;
+      return false;
     }
     setError({ ...error, username: "" });
     setUsername(username);
+    return true;
   };
 
-  const validatePassword = (e) => {
-    const password = e.target.value;
-    if (password.trim().length == 0) {
+  const validatePassword = (password) => {
+    if (!password) {
       setError({ ...error, password: "Password is required" });
-      return;
+      return false;
     }
     setError({ ...error, password: "" });
     setPassword(password);
+    return true;
   };
 
   return (
@@ -78,7 +67,7 @@ function Login({ isShow, onClose }) {
             placeholder="Username"
             className="form-control"
             defaultValue={username}
-            onChange={(e) => validateUsername(e)}
+            onChange={(e) => validateUsername(e.target.value)}
           />
           {error && error.username && (
             <small className="d-block mt-1 text-danger">{error.username}</small>
@@ -91,7 +80,7 @@ function Login({ isShow, onClose }) {
             placeholder="Password"
             className="form-control"
             defaultValue={password}
-            onChange={(e) => validatePassword(e)}
+            onChange={(e) => validatePassword(e.target.value)}
           />
           {error && error.password && (
             <small className="d-block mt-1 text-danger">{error.password}</small>

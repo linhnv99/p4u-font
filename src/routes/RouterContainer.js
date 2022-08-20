@@ -14,31 +14,30 @@ const RouterContainer = () => {
     <BrowserRouter>
       <Switch>
         {appRoutes.map((route, key) => {
-          // const { path, exact, component } = route;
-          // if (route.notProtected)
-          //   return <Route key={key} path={path} component={component} />;
-          // return (
-          //   <ProtectedRoute
-          //     key={key}
-          //     path={path}
-          //     exact={exact}
-          //     component={component}
-          //     redirect={Router.login}
-          //   />
-          // );
           const { path, exact, component: Component } = route;
+          if (route.notProtected) {
+            return (
+              <Route
+                key={key}
+                exact={exact}
+                path={path}
+                render={(routerProps) => {
+                  return (
+                    <DefaultLayout {...routerProps}>
+                      <Component {...routerProps} />
+                    </DefaultLayout>
+                  );
+                }}
+              />
+            );
+          }
           return (
-            <Route
+            <ProtectedRoute
               key={key}
               path={path}
               exact={exact}
-              render={(routerProps) => {
-                return (
-                  <DefaultLayout {...routerProps}>
-                    <Component {...routerProps}/>
-                  </DefaultLayout>
-                );
-              }}
+              component={Component}
+              redirect={Router.login}
             />
           );
         })}
