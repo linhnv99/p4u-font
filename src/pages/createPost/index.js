@@ -111,8 +111,8 @@ function CreatePost() {
           urlRedirect={Router.home}
         />
       )}
-      <div className="main-content bg-gray">
-        <div className="create-post ">
+      <div className="main-content bg-gray px-2">
+        <div className="create-post p-4 p-md-5">
           <div className="post">
             <form onSubmit={handleSubmit}>
               <div className="header">
@@ -121,7 +121,7 @@ function CreatePost() {
               <div className="clearfix mb-4"></div>
               <div className="row">
                 <div className="col-12 col-md-6 px-2 mb-3 mb-md-0">
-                  <div className="img-uploader container-fluid">
+                  <div className="img-uploader px-0 px-md-4">
                     <label className="input-file text-center mb-3">
                       <i className="fas fa-upload"></i> Upload
                       <input
@@ -133,7 +133,7 @@ function CreatePost() {
                       />
                     </label>
 
-                    <ul>
+                    <ul className="d-flex justify-content-center flex-column">
                       {!fileUploads.files.length ? (
                         <li>
                           <img

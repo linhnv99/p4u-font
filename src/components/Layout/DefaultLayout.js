@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import Router from "../../routes/router";
 import userActions from "../../store/actions/userActions";
 import { ToastContainer } from "react-toastify";
+import Auth from "../../api/auth";
 import "react-toastify/dist/ReactToastify.css";
 
 const DefaultLayout = ({ children }) => {
@@ -31,12 +32,16 @@ const DefaultLayout = ({ children }) => {
 
   return (
     <div className="wrapper">
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-1">
-        <div className="container">
-          <a className="navbar-brand me-2">Present for you</a>
-          <div className="collapse navbar-collapse" id="navbarButtonsExample">
-            <div className="navbar-nav me-auto mb-2 mb-lg-0"></div>
-
+      <nav className="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-1">
+        <div className="container-fluid mx-0 mx-md-3">
+          <b
+            className="navbar-brand me-2 "
+            onClick={() => history.push(Router.home)}
+            style={{ cursor: "pointer" }}
+          >
+            Present for you
+          </b>
+          <div className="float-end d-flex justify-content-center align-items-center">
             {auth.isLogin && (
               <>
                 <div className="me-3">
@@ -47,14 +52,10 @@ const DefaultLayout = ({ children }) => {
                     <i className="fas fa-plus fa-2x"></i>
                   </button>
                 </div>
-                <div className="dropdown">
+                {/* <div className="dropdown">
                   <a
                     className="text-reset me-3 dropdown-toggle hidden-arrow"
                     href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
                   >
                     <i className="fas fa-bell fa-2x"></i>
                     <span className="badge rounded-pill badge-notification bg-danger">
@@ -63,7 +64,6 @@ const DefaultLayout = ({ children }) => {
                   </a>
                   <ul
                     className="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="navbarDropdownMenuLink"
                   >
                     <li>
                       <a className="dropdown-item" href="#">
@@ -81,7 +81,7 @@ const DefaultLayout = ({ children }) => {
                       </a>
                     </li>
                   </ul>
-                </div>
+                </div> */}
                 <div className="dropdown">
                   <a className="dropdown-toggle d-flex align-items-center hidden-arrow">
                     <img
@@ -103,9 +103,16 @@ const DefaultLayout = ({ children }) => {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <button
+                        className="dropdown-item"
+                        onClick={() => {
+                          Auth.removeToken();
+                          history.push(Router.home);
+                          window.location.reload();
+                        }}
+                      >
                         Logout
-                      </a>
+                      </button>
                     </li>
                   </ul>
                 </div>
@@ -123,7 +130,7 @@ const DefaultLayout = ({ children }) => {
                 <button
                   onClick={() => showModal("SIGN_UP")}
                   type="button"
-                  className="btn btn-primary me-3"
+                  className="btn btn-primary "
                 >
                   Sign up
                 </button>

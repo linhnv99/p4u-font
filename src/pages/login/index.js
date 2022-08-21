@@ -29,7 +29,8 @@ function Login({ isShow, onClose }) {
 
         if (response.code === 200) {
           Auth.setToken(response.data.accessToken);
-          history.push(Router.newsFeed);
+          history.push(Router.home);
+          window.location.reload();
         }
       } catch (error) {
         Toaster.error(getErrorMessage(error.data.code), 2000);

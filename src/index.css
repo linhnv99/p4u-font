@@ -347,7 +347,7 @@ code {
 }
 
 .img-uploader {
-  max-width: 350px;
+  /* max-width: 380px; */
 }
 
 .img-uploader ul>li {

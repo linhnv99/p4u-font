@@ -2,7 +2,7 @@ function Modal({ children, isShow, onClose, title }) {
   return (
     <div className={`wp-modal  ${isShow ? "show" : "bgblack"}`}>
       <div className="overlay"></div>
-      <div className="modal-container">
+      <div className="modal-container mx-2">
         <div className="modal-content">
           <div className="content">
             <div className="header">
