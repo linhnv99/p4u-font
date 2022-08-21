@@ -44,7 +44,7 @@ function Home() {
           <StackGrid
             columnWidth={`${gridColumnResponsive(width)}%`}
             itemComponent="div"
-            duration={100}
+            duration={0}
             gutterWidth={15}
             gutterHeight={15}
           >
