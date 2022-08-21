@@ -2,7 +2,7 @@ export const getErrorMessage = (code) => {
   let message;
   switch (code) {
     case 402:
-      message = "Tài khoản chưa được kích hoạt.";
+      message = "Tài khoản không tồn tại hoặc chưa được kích hoạt.";
       break;
     case 403:
       message = "Tên tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại.";
