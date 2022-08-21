@@ -5,6 +5,7 @@ import SignUp from "../pages/signup";
 import CreatePost from "../pages/createPost";
 import Profile from "../pages/profile";
 import VerifyAccount from "../pages/verifyAccount";
+import ForgotPassword from "../pages/forgotPassword";
 
 const appRoutes = [
   {
@@ -48,6 +49,13 @@ const appRoutes = [
     notProtected: true,
     exact: true,
     component: VerifyAccount,
+  },
+  {
+    description: "Forgot Password",
+    path: Router.forgotPassword,
+    notProtected: true,
+    exact: true,
+    component: ForgotPassword,
   },
 ];
 

@@ -2,6 +2,8 @@ export const getErrorMessage = (code) => {
   let message;
   switch (code) {
     case 402:
+      message = "Tài khoản chưa được kích hoạt.";
+      break;
     case 403:
       message = "Tên tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại.";
       break;
@@ -16,6 +18,12 @@ export const getErrorMessage = (code) => {
       break;
     case 408:
       message = "Email không tồn tại. Vui lòng thử lại.";
+      break;
+    case 409:
+      message = "Email đã được sử dụng. Vui lòng nhập email khác.";
+      break;
+    case 410:
+      message = "Tài khoản đã bị khóa hoặc chưa được kích hoạt. Thử lại.";
       break;
     default:
       message = "Đã có lỗi xảy ra. Vui lòng thử lại sau.";

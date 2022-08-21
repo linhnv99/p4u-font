@@ -33,29 +33,31 @@ function Login({ isShow, onClose }) {
           window.location.reload();
         }
       } catch (error) {
-        Toaster.error(getErrorMessage(error.data.code), 2000);
+        Toaster.error(getErrorMessage(error.data.code), 2500);
       }
     };
     fetchData();
   };
 
   const validateUsername = (username) => {
-    if (!username) {
-      setError({ ...error, username: "Username is required" });
+    const usernameTrim = username.trim();
+    if (!usernameTrim) {
+      setError({ ...error, username: "Username là bắt buộc." });
       return false;
     }
     setError({ ...error, username: "" });
-    setUsername(username);
+    setUsername(usernameTrim);
     return true;
   };
 
   const validatePassword = (password) => {
-    if (!password) {
-      setError({ ...error, password: "Password is required" });
+    const passwordTrim = password.trim();
+    if (!passwordTrim) {
+      setError({ ...error, password: "Password là bắt buộc." });
       return false;
     }
     setError({ ...error, password: "" });
-    setPassword(password);
+    setPassword(passwordTrim);
     return true;
   };
 
@@ -90,7 +92,15 @@ function Login({ isShow, onClose }) {
 
         <div className="row mb-4">
           <div className="col d-flex justify-content-center">
-            <a href="#!">Forgot password?</a>
+            <a
+              href="/forgot-password"
+              onClick={(e) => {
+                e.preventDefault();
+                history.push(Router.forgotPassword);
+              }}
+            >
+              Forgot password?
+            </a>
           </div>
         </div>
 

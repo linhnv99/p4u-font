@@ -1,35 +1,17 @@
 import React, { useState, useEffect } from "react";
-import queryString from "query-string";
 import services from "../../api/services";
 import { useHistory } from "react-router-dom";
-import Auth from "../../api/auth";
 import Router from "../../routes/router";
 import Toaster from "../../utils/toaster";
 import { getErrorMessage } from "../../errors";
 
-function VerifyAccount({ location: { search } }) {
+function ForgotPassword() {
   const history = useHistory();
-  const [error, setError] = useState();
-  const [errorToken, setErrorToken] = useState();
-  const [email, setEmail] = useState();
-  const { token } = queryString.parse(search);
+  const [error, setError] = useState("");
+  const [notifySuccess, setNotifySuccess] = useState("");
+  const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await services.loginByToken({ token });
-        Auth.setToken(response.data.accessToken);
-        history.push(Router.home);
-      } catch (error) {
-        setErrorToken(getErrorMessage(error.data.code));
-      }
-    };
-    if (token) {
-      fetchData();
-    }
-  }, []);
-
-  const handleGetNewOTP = (e) => {
+  const handleForgotPassword = (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
       return;
@@ -37,12 +19,14 @@ function VerifyAccount({ location: { search } }) {
 
     const fetchData = async () => {
       try {
-        const response = await services.requestOTP({ email });
+        const response = await services.forgotPassword({ email });
         if (response.code === 200) {
-          Toaster.info("Vui lòng kiểm tra email của bạn để hoàn tất xác thực!");
+          // Toaster.info("Vui lòng kiểm tra email của bạn để hoàn tất xác thực!");
+          setNotifySuccess("Thành công. Vui lòng kiểm tra email của bạn.");
         }
       } catch (error) {
         Toaster.error(getErrorMessage(error.data.code), 2000);
+        setNotifySuccess("");
       }
     };
 
@@ -68,14 +52,16 @@ function VerifyAccount({ location: { search } }) {
             <div className="modal-content" style={{ marginTop: "20vh" }}>
               <div className="content">
                 <div className="body">
-                  <h2 className="title">Verify Account</h2>
-                  {errorToken && (
-                    <div className="alert alert-danger text-center">{errorToken}</div>
+                  <h2 className="title">Forgot Password</h2>
+                  {notifySuccess && (
+                    <div className="alert alert-success text-center">
+                      {notifySuccess}
+                    </div>
                   )}
                   <form
                     className="mt-4"
                     style={{ maxwidth: "470px" }}
-                    onSubmit={handleGetNewOTP}
+                    onSubmit={handleForgotPassword}
                   >
                     <div className="form mb-4">
                       <input
@@ -96,7 +82,7 @@ function VerifyAccount({ location: { search } }) {
                       type="submit"
                       className="btn btn-primary btn-block mb-4"
                     >
-                      Get new otp
+                      Submit
                     </button>
 
                     <div className="text-center">
@@ -134,4 +120,4 @@ function VerifyAccount({ location: { search } }) {
   );
 }
 
-export default VerifyAccount;
+export default ForgotPassword;

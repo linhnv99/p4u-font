@@ -12,6 +12,9 @@ const verifyCode = (args) => AxiosInstance.post("/users/otp-verifier", args);
 
 const requestOTP = (args) => AxiosInstance.post("/users/otp-requester", args);
 
+const forgotPassword = (args) =>
+  AxiosInstance.post("/users/forgot-password", args);
+
 export const authService = {
   login,
   signUp,
@@ -19,4 +22,5 @@ export const authService = {
   verifyCode,
   loginByToken,
   requestOTP,
+  forgotPassword,
 };

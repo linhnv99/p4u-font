@@ -12,6 +12,7 @@ function SignUp({ isShow, onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
+  const [notifySuccess, setNotifySuccess] = useState("");
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -32,51 +33,73 @@ function SignUp({ isShow, onClose }) {
         });
 
         if (response.code === 200) {
-          Toaster.info(
-            "Đăng ký thành công! Vui lòng kiểm tra mail để xác nhận tài khoản",
-            3000
+          // Toaster.info(
+          //   "Đăng ký thành công! Vui lòng kiểm tra mail để xác nhận tài khoản.",
+          //   3000
+          // );
+          setNotifySuccess(
+            "Đăng ký thành công! Vui lòng kiểm tra mail để xác thực tài khoản của bạn."
           );
         }
       } catch (error) {
-        Toaster.error(getErrorMessage(error.data.code), 2000);
+        Toaster.error(getErrorMessage(error.data.code), 2500);
+        setNotifySuccess("");
       }
     };
     fetchData();
   };
 
   const validateUsername = (username) => {
-    if (!username) {
-      setError({ ...error, username: "Username is required" });
+    const regex = /^[a-zA-Z0-9_]{6,}/;
+    const usernameTrim = username.trim();
+    if (!usernameTrim) {
+      setError({ ...error, username: "Username là bắt buộc." });
+      return false;
+    }
+    if (usernameTrim.length < 6 || !regex.test(usernameTrim)) {
+      setError({
+        ...error,
+        username: "Username phải lớn hơn 6 và là kí tự thường, số.",
+      });
       return false;
     }
     setError({ ...error, username: "" });
-    setUsername(username);
+    setUsername(usernameTrim);
     return true;
   };
 
   const validateEmail = (email) => {
-    if (!email) {
-      setError({ ...error, email: "Email is required" });
+    const emailTrim = email.trim();
+    if (!emailTrim) {
+      setError({ ...error, email: "Email là bắt buộc." });
       return false;
     }
     setError({ ...error, email: "" });
-    setEmail(email);
+    setEmail(emailTrim);
     return true;
   };
 
   const validatePassword = (password) => {
-    if (!password) {
-      setError({ ...error, password: "Password is required" });
+    const passwordTrim = password.trim();
+    if (!passwordTrim) {
+      setError({ ...error, password: "Password là bắt buộc." });
+      return false;
+    }
+    if (passwordTrim.length < 6) {
+      setError({ ...error, password: "Password phải lớn hơn 6 kí tự" });
       return false;
     }
     setError({ ...error, password: "" });
-    setPassword(password);
+    setPassword(passwordTrim);
     return true;
   };
 
   return (
     <Modal isShow={isShow} onClose={onClose} title="Sign up to discover">
       <form onSubmit={handleSignUp}>
+        {notifySuccess && (
+          <div className="alert alert-success text-center">{notifySuccess}</div>
+        )}
         <div className="form mb-4">
           <input
             type="username"
