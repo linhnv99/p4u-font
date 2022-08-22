@@ -7,6 +7,8 @@ import Spinner from "../../components/Spinner";
 import StackGrid from "react-stack-grid";
 import { SizeMe } from "react-sizeme";
 
+import "./index.css";
+
 function Home() {
   const history = useHistory();
   const { loading, error, data } = useAxios(API.getAllPostNew());
@@ -47,6 +49,9 @@ function Home() {
             duration={0}
             gutterWidth={15}
             gutterHeight={15}
+            appearDelay={0}
+            monitorImagesLoaded
+            // horizontal
           >
             {posts.length != 0 &&
               posts.map((post, index) => {
