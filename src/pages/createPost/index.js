@@ -4,6 +4,7 @@ import Progress from "../../components/Progress";
 import Router from "../../routes/router";
 import Toaster from "../../utils/toaster";
 import { getErrorMessage } from "../../errors";
+import { resizeFile } from "../../utils/imageUtils";
 
 function CreatePost() {
   const textAreaRef = useRef(null);
@@ -67,23 +68,28 @@ function CreatePost() {
     return true;
   };
 
-  const uploadItem = (e) => {
-    let files = e.target.files;
-    console.log(files);
-    const fileResults = [];
-    for (const element of files) {
-      const file = {
-        id: element.size,
-        file: element,
-        imagePreviewUrl: URL.createObjectURL(element),
-      };
-      fileResults.push(file);
-    }
+  const uploadItem = async (e) => {
+    try {
+      let files = e.target.files;
+      console.log(files);
+      const fileResults = [];
+      for (const element of files) {
+        let fileResized = await resizeFile(element);
+        const file = {
+          id: element.size,
+          file: fileResized,
+          imagePreviewUrl: URL.createObjectURL(fileResized),
+        };
+        fileResults.push(file);
+      }
 
-    setFileUploads({
-      no_image: fileUploads.no_image,
-      files: [...fileUploads.files, ...fileResults],
-    });
+      setFileUploads({
+        no_image: fileUploads.no_image,
+        files: [...fileUploads.files, ...fileResults],
+      });
+    } catch (e) {
+      Toaster.error(e);
+    }
   };
 
   const removeItem = (e) => {
