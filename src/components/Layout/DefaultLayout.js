@@ -39,6 +39,7 @@ const DefaultLayout = ({ children }) => {
             onClick={() => history.push(Router.home)}
             style={{ cursor: "pointer" }}
           >
+            {/* <img src="/assets/img/logo.png" className="img-fluild"/> */}
             Present for you
           </b>
           <div className="float-end d-flex justify-content-center align-items-center">

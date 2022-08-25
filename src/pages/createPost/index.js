@@ -16,7 +16,7 @@ function CreatePost() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [fileUploads, setFileUploads] = useState({
-    no_image: "https://www.freeiconspng.com/uploads/no-image-icon-6.png",
+    no_image: "/assets/img/no-image.png",
     files: [],
   });
 
