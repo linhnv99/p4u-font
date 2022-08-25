@@ -6,6 +6,8 @@ import API from "../../api";
 import Spinner from "../../components/Spinner";
 import StackGrid from "react-stack-grid";
 import { SizeMe } from "react-sizeme";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import "./index.css";
 
@@ -57,7 +59,12 @@ function Home() {
               posts.map((post, index) => {
                 return (
                   <div key={index} className="grid-item">
-                    <img src={post.fileUrls[0]} className="img-fluid" />
+                    <LazyLoadImage
+                      className="img-fluid"
+                      alt="p4u-image"
+                      effect="blur"
+                      src={post.fileUrls[0]}
+                    />
                   </div>
                 );
               })}
