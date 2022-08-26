@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import Toaster from "../../utils/toaster";
 import { useAxios } from "../../hooks/useAxios";
@@ -7,7 +7,7 @@ import Spinner from "../../components/Spinner";
 import StackGrid from "react-stack-grid";
 import { SizeMe } from "react-sizeme";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import "./index.css";
 
@@ -48,23 +48,24 @@ function Home() {
           <StackGrid
             columnWidth={`${gridColumnResponsive(width)}%`}
             itemComponent="div"
-            duration={0}
+            duration={400}
             gutterWidth={15}
             gutterHeight={15}
-            appearDelay={0}
+            easing={"cubicOut"}
+            appearDelay={50}
             monitorImagesLoaded
-            // horizontal
           >
             {posts.length != 0 &&
               posts.map((post, index) => {
                 return (
-                  <div key={index} className="grid-item">
+                  <div key={index} className="grid-item w-100 h-100">
                     <LazyLoadImage
                       className="img-fluid"
                       alt="p4u-image"
                       effect="blur"
                       src={post.fileUrls[0]}
                     />
+                    {/* <img className="img-fluid" src={post.fileUrls[0]} /> */}
                   </div>
                 );
               })}

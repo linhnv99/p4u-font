@@ -140,7 +140,7 @@ const DefaultLayout = ({ children }) => {
           </div>
         </div>
       </nav>
-      <div style={{ paddingTop: "3.2rem" }}>{children}</div>
+      <div style={{ paddingTop: "4rem" }}>{children}</div>
       {modalTypes.type === "NONE" ? null : modalTypes.type === "LOGIN" ? (
         <Login isShow onClose={closeModal} />
       ) : (
