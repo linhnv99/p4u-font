@@ -1,13 +1,15 @@
 import Resizer from "react-image-file-resizer";
 
-const resizeFile = (file) =>
-  new Promise((resolve) => {
+const resizeFile = (file, maxWidth = 860, maxHeight = 860, quality = 100) => {
+  const fileName = file.name;
+  const fileExtension = fileName.slice(fileName.lastIndexOf(".") + 1);
+  return new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
-      860,
-      860,
-      "jpeg",
-      100,
+      maxWidth,
+      maxHeight,
+      fileExtension,
+      quality,
       0,
       (uri) => {
         resolve(uri);
@@ -15,5 +17,6 @@ const resizeFile = (file) =>
       "file"
     );
   });
+};
 
 export { resizeFile };

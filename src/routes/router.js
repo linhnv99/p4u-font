@@ -6,7 +6,8 @@ const routes = {
   createPost: "/create-post",
   profile: "/profile",
   verifyAccount: "/verify-account",
-  forgotPassword: "/forgot-password"
+  forgotPassword: "/forgot-password",
+  postDetail: "/post/:id",
 };
 
 // format route: /route/:id => route/1

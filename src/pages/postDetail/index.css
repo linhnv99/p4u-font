@@ -1,0 +1,193 @@
+.post-detail {
+  max-width: 1016px;
+  border-radius: 32px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 1px 20px 0px;
+  overflow: hidden;
+  height: auto;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+
+.box-content {
+  padding: 30px 35px 30px 15px;
+  cursor: default;
+}
+
+.box-content .uploader {
+  font-size: 20px;
+}
+
+.box-content .uploader a {
+  font-size: 22px;
+  color: #000;
+  font-weight: 500
+}
+
+.box-content .uploader a:hover {
+  text-decoration: underline;
+}
+
+.box-content .title {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 36px;
+}
+
+.box-content .content {
+  font-size: 15px;
+  margin-top: 12px
+}
+
+.box-content .box-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 48px;
+  margin-top: 30px;
+}
+
+.box-user .user {
+  display: flex;
+  align-items: center;
+}
+
+.box-user .user .username {
+  font-weight: 500;
+  color: #000;
+  font-size: 15px;
+}
+
+.box-user .user .follower {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.box-user button {
+  font-size: 16px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 24px;
+  background-color: #e3e3e3;
+  color: #000;
+  font-weight: 500;
+}
+
+.box-user button:hover {
+  background-color: #d3d3d3;
+}
+
+.box-content .box-comment {
+  margin-top: 40px;
+}
+
+.box-comment>div:nth-child(1) {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.box-comment .comment {
+  display: flex;
+  margin: 12px 0px;
+  font-size: 15px;
+}
+
+.box-comment .box-reply span {
+  margin-right: 18px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.box-comment .user-comment {
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.box-reply .reply {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.box-comment ul.sub-comment>li {
+  display: flex;
+  margin-top: 10px;
+}
+
+.box-input-comment {
+  display: flex;
+  /* align-items: center; */
+  margin-top: 5px;
+}
+
+.box-input-comment textarea {
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: #000;
+  font-size: 15px;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.box-input-comment .input-comment {
+  width: 100%;
+}
+
+.box-input-comment .input-comment button {
+  font-size: 16px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 24px;
+  background-color: #e3e3e3;
+  color: #000;
+  font-weight: 500;
+}
+
+.prev-btn,
+.next-btn {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.5s
+}
+
+.prev-btn {
+  left: 1.2rem;
+  display: none;
+}
+
+.next-btn {
+  right: 1.2rem;
+  display: none;
+}
+
+.slider-container:hover .next-btn,
+.slider-container:hover .prev-btn {
+  display: block;
+}
+
+.slide {
+  max-height: 840px;
+  display: inline-block;
+  margin: auto 0;
+}
+
+.slide img {
+  max-height: 100%;
+}
+
+.paging-dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #ddd
+}
+
+@media screen and (max-width: 768px) {
+
+  .slider-container .prev-btn,
+  .slider-container .next-btn {
+    display: none
+  }
+}

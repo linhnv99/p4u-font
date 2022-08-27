@@ -25,6 +25,9 @@ export const getErrorMessage = (code) => {
     case 410:
       message = "Tài khoản đã bị khóa hoặc chưa được kích hoạt. Thử lại.";
       break;
+    case 411:
+      message = "Tồn tại tệp không hỗ trợ. Vui lòng thử lại.";
+      break;
     default:
       message = "Đã có lỗi xảy ra. Vui lòng thử lại sau.";
       break;

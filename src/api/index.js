@@ -7,6 +7,10 @@ const API = {
     path: "/profiles",
     method: "get",
   }),
+  getPost: (id) => ({
+    path: "/posts/" + id,
+    method: "get",
+  }),
 };
 
 export default API;

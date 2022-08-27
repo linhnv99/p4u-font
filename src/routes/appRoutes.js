@@ -6,6 +6,7 @@ import CreatePost from "../pages/createPost";
 import Profile from "../pages/profile";
 import VerifyAccount from "../pages/verifyAccount";
 import ForgotPassword from "../pages/forgotPassword";
+import PostDetail from "../pages/postDetail";
 
 const appRoutes = [
   {
@@ -56,6 +57,13 @@ const appRoutes = [
     notProtected: true,
     exact: true,
     component: ForgotPassword,
+  },
+  {
+    description: "Post Detail",
+    path: Router.postDetail,
+    notProtected: true,
+    exact: true,
+    component: PostDetail,
   },
 ];
 
