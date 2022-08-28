@@ -47,7 +47,6 @@ function Home() {
         page,
       });
       const data = response.data ? response.data.data : [];
-      console.log(data);
       setPosts([...posts, ...data]);
     } catch (error) {
       Toaster.error(getErrorMessage(error.data.code));
@@ -60,8 +59,7 @@ function Home() {
       let windowHeight = window.innerHeight;
       let height = document.body.scrollHeight - windowHeight;
       let scrollPercentage = scrollTop / height;
-
-      if (scrollPercentage > 0.8) {
+      if (scrollPercentage >= 1) {
         setPage(page + 1);
       }
     });
