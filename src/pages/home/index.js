@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Toaster from "../../utils/toaster";
 import { useAxios } from "../../hooks/useAxios";
@@ -9,22 +9,68 @@ import { SizeMe } from "react-sizeme";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Router from "../../routes/router";
+import services from "../../api/services";
+
 import "./index.css";
 
 function Home() {
   const history = useHistory();
-  const { loading, error, data } = useAxios(API.getAllPostNew());
+  const { loading, error, data } = useAxios(API.getAllNewPosts());
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
 
   if (error) {
-    Toaster.error(error.data);
+    Toaster.error(getErrorMessage(error.data.code));
     return;
   }
 
+  useEffect(() => {
+    if (data?.data) {
+      setPosts(data?.data || []);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    handleScroll();
+    return () => {
+      handleScroll();
+    };
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [page]);
+
+  const fetchData = async () => {
+    try {
+      const response = await services.getAllNewPosts({
+        page,
+      });
+      const data = response.data ? response.data.data : [];
+      console.log(data);
+      setPosts([...posts, ...data]);
+    } catch (error) {
+      Toaster.error(getErrorMessage(error.data.code));
+    }
+  };
+
+  const handleScroll = () => {
+    document.addEventListener("scroll", () => {
+      let scrollTop = document.documentElement.scrollTop;
+      let windowHeight = window.innerHeight;
+      let height = document.body.scrollHeight - windowHeight;
+      let scrollPercentage = scrollTop / height;
+
+      if (scrollPercentage > 0.8) {
+        setPage(page + 1);
+      }
+    });
+  };
+
+  console.log(page);
   if (loading) {
     return <Spinner />;
   }
-
-  const posts = data?.data || [];
 
   const gridColumnResponsive = (width) => {
     if (width < 576) {
@@ -44,7 +90,7 @@ function Home() {
       monitorWidth
       refreshRate={16}
       render={({ size: { width, height } }) => (
-        <div className="container max-width-1260 mt-3">
+        <div className="container max-width-1260 mt-3" id="lstPost">
           <StackGrid
             className="stack-grid"
             columnWidth={`${gridColumnResponsive(width)}%`}
@@ -55,6 +101,7 @@ function Home() {
             gutterHeight={16}
             appearDelay={50}
             monitorImagesLoaded
+            duration={1200}
           >
             {posts.length != 0 &&
               posts.map((post, index) => {

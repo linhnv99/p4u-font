@@ -1,5 +1,5 @@
 const API = {
-  getAllPostNew: (params = "") => ({
+  getAllNewPosts: (params = "") => ({
     path: "/posts" + params,
     method: "get",
   }),
