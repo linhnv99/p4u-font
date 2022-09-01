@@ -116,42 +116,44 @@ function PostDetail({
                     </div>
                     <ul className="sub-comment">
                       <li>
-                        <img
-                          src="/assets/img/avt-default.jpeg"
-                          height="35"
-                          width="35"
-                          className="rounded-circle avt me-2"
-                        />
-                        <div className="">
-                          <p className="user-comment">LinhNguyen</p>
-                          <p>
-                            Jadi ini isinya cuma ulzzang - ulzzang. Cocok buat
-                            yg mau bikin cerita.
-                          </p>
-                          <div className="box-reply">
-                            <span className="timestamp">3w</span>
-                            <span className="reply">Trả lời</span>
-                            <span className="like">Like</span>
-                          </div>
-                          {/* form input sub-comment */}
-                          <form className="box-input-comment">
-                            <img
-                              src="/assets/img/avt-default.jpeg"
-                              height="50"
-                              width="50"
-                              className="rounded-circle avt me-2"
-                            />
-                            <div className="input-comment">
-                              <textarea
-                                className=""
-                                placeholder="Nhận xét đi nào"
-                              ></textarea>
-
-                              <button className="mt-2 float-end">Gửi</button>
+                        <div className="content">
+                          <img
+                            src="/assets/img/avt-default.jpeg"
+                            height="35"
+                            width="35"
+                            className="rounded-circle avt me-2"
+                          />
+                          <div className="">
+                            <p className="user-comment">LinhNguyen</p>
+                            <p>
+                              Jadi ini isinya cuma ulzzang - ulzzang. Cocok buat
+                              yg mau bikin cerita.
+                            </p>
+                            <div className="box-reply">
+                              <span className="timestamp">3w</span>
+                              <span className="reply">Trả lời</span>
+                              <span className="like">Like</span>
                             </div>
-                          </form>
-                          {/* form input sub-comment */}
+                          </div>
                         </div>
+                        {/* form input sub-comment */}
+                        <form className="box-input-comment">
+                          <img
+                            src="/assets/img/avt-default.jpeg"
+                            height="50"
+                            width="50"
+                            className="rounded-circle avt me-2"
+                          />
+                          <div className="input-comment">
+                            <textarea
+                              className=""
+                              placeholder="Nhận xét đi nào"
+                            ></textarea>
+
+                            <button className="mt-2 float-end">Gửi</button>
+                          </div>
+                        </form>
+                        {/* form input sub-comment */}
                       </li>
                     </ul>
                   </div>

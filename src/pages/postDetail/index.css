@@ -109,7 +109,7 @@
   cursor: pointer;
 }
 
-.box-comment ul.sub-comment>li {
+.box-comment ul.sub-comment>li>div.content {
   display: flex;
   margin-top: 10px;
 }
@@ -122,7 +122,7 @@
 
 .box-input-comment textarea {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 12px;
   color: #000;
   font-size: 15px;
   border-radius: 16px;

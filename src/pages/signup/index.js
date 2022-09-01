@@ -8,6 +8,7 @@ import { getErrorMessage } from "../../errors";
 
 function SignUp({ isShow, onClose }) {
   const history = useHistory();
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +20,8 @@ function SignUp({ isShow, onClose }) {
     if (
       !validateUsername(username) ||
       !validateEmail(email) ||
-      !validatePassword(password)
+      !validatePassword(password) ||
+      !validateName(name)
     ) {
       return;
     }
@@ -27,6 +29,7 @@ function SignUp({ isShow, onClose }) {
     const fetchData = async () => {
       try {
         const response = await services.signUp({
+          name,
           username,
           email,
           password,
@@ -47,6 +50,17 @@ function SignUp({ isShow, onClose }) {
       }
     };
     fetchData();
+  };
+
+  const validateName = (name) => {
+    const nameTrim = name.trim();
+    if (!nameTrim) {
+      setError({ ...error, name: "Name là bắt buộc." });
+      return false;
+    }
+    setError({ ...error, name: "" });
+    setName(nameTrim);
+    return true;
   };
 
   const validateUsername = (username) => {
@@ -100,6 +114,20 @@ function SignUp({ isShow, onClose }) {
         {notifySuccess && (
           <div className="alert alert-success text-center">{notifySuccess}</div>
         )}
+
+        <div className="form mb-4">
+          <input
+            type="name"
+            placeholder="Your name"
+            className="form-control"
+            name="name"
+            defaultValue={name}
+            onChange={(e) => validateName(e.target.value)}
+          />
+          {error && error.name && (
+            <small className="d-block mt-1 text-danger">{error.name}</small>
+          )}
+        </div>
         <div className="form mb-4">
           <input
             type="username"
