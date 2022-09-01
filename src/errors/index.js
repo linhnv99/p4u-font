@@ -1,6 +1,9 @@
 export const getErrorMessage = (code) => {
   let message;
   switch (code) {
+    case 401: // case 401 httpStatus
+      message = "Vui lòng đăng nhập để tiếp tục.";
+      break;
     case 402:
       message = "Tài khoản không tồn tại hoặc chưa được kích hoạt.";
       break;

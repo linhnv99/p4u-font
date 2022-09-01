@@ -47,6 +47,7 @@ function Home() {
         page,
       });
       const data = response.data ? response.data.data : [];
+      
       setPosts([...posts, ...data]);
     } catch (error) {
       Toaster.error(getErrorMessage(error.data.code));

@@ -95,7 +95,8 @@
 
 .box-comment .box-reply span {
   margin-right: 18px;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
   line-height: 24px;
 }
 
@@ -112,35 +113,6 @@
 .box-comment ul.sub-comment>li>div.content {
   display: flex;
   margin-top: 10px;
-}
-
-.box-input-comment {
-  display: flex;
-  /* align-items: center; */
-  margin-top: 5px;
-}
-
-.box-input-comment textarea {
-  border: 1px solid #ddd;
-  padding: 12px;
-  color: #000;
-  font-size: 15px;
-  border-radius: 16px;
-  width: 100%;
-}
-
-.box-input-comment .input-comment {
-  width: 100%;
-}
-
-.box-input-comment .input-comment button {
-  font-size: 16px;
-  padding: 12px 16px;
-  border: none;
-  border-radius: 24px;
-  background-color: #e3e3e3;
-  color: #000;
-  font-weight: 500;
 }
 
 .prev-btn,
@@ -190,4 +162,34 @@
   .slider-container .next-btn {
     display: none
   }
+}
+
+.reply-number {
+  cursor: pointer;
+}
+
+.reply-number>i {
+  transform: rotate(90deg);
+  margin-right: 10px;
+  color: rgba(0, 0, 0, 0.5)
+}
+
+.reply-number>b {
+  font-weight: 600;
+  font-size: 13px;
+}
+.reply-number>b:hover {
+  text-decoration: underline;
+}
+
+.comment .cmt-content {
+  background-color: #f1f1f1f1;
+  padding: 8px 20px 8px 12px;
+  border-radius: 22px;
+  display: inline-block;
+}
+
+.load-more:hover {
+  cursor: pointer;
+  text-decoration: underline;;
 }
