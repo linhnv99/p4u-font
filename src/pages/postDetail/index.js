@@ -165,7 +165,7 @@ function PostDetail({
             <div className="box-content">
               <p className="uploader">
                 Tải lên bởi
-                <a href="#">{post.user.name ?? post.user.username}</a>
+                <a href="#"> {post.user.name ?? post.user.username}</a>
               </p>
               <p className="title">{post.title}</p>
               <p className="content">{post.content}</p>

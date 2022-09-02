@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import Toaster from "../../utils/toaster";
 import { useAxios } from "../../hooks/useAxios";
@@ -11,6 +11,8 @@ import services from "../../api/services";
 import Masonry from "react-masonry-component";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "../../components/Loader";
+import { SizeMe } from "react-sizeme";
+import { getNewHeightFromOriginalFile } from "../../utils/imageUtils";
 
 import "./index.css";
 
@@ -19,7 +21,7 @@ function Home() {
   const DEFAULT_SIZE = 20;
   const { loading, error, data } = useAxios(API.getAllNewPosts());
   const [posts, setPosts] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  // const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(2);
 
   if (error) {
@@ -42,9 +44,8 @@ function Home() {
       const data = response.data ? response.data.data : [];
 
       setPosts([...posts, ...data]);
-      console.log(data);
       if (data.length == 0 || data.length < DEFAULT_SIZE) {
-        setHasMore(false);
+        // setHasMore(false);
         return;
       }
       setPage(page + 1);
@@ -69,18 +70,15 @@ function Home() {
     <InfiniteScroll
       dataLength={posts.length}
       next={fetchData}
-      hasMore={hasMore}
+      // hasMore={hasMore}
       loader={<Loader />}
-      className="pt-2 pb-5 grid-center overflow-hidden"
+      className="pt-2 pb-5 mt-2 grid-center overflow-hidden"
     >
       <Masonry elementType={"ul"} options={masonryOptions}>
         {posts.length != 0 &&
           posts.map((post, index) => {
             return (
-              <li
-                key={index}
-                className="post-item"
-              >
+              <li key={index} className="post-item">
                 <a
                   className="post-content"
                   href={Router.get(Router.postDetail, {
@@ -95,22 +93,42 @@ function Home() {
                     );
                   }}
                 >
-                  <div className="image">
-                    <div className="overlay"></div>
-                    {post.fileUrls.length > 1 && (
-                      <span className="image-number bg-danger">
-                        {JSON.stringify(post.fileUrls.length)}
-                      </span>
-                    )}
+                  <SizeMe
+                    monitorHeight
+                    refreshRate={32}
+                    render={({ size: { width: adjustedWidth } }) => {
+                      const newHeight = getNewHeightFromOriginalFile(
+                        adjustedWidth,
+                        post.avatarPost?.width || 1,
+                        post.avatarPost?.height || 1
+                      );
+                      return (
+                        <div className="image">
+                          <div className="overlay"></div>
+                          {post.fileUrls.length > 1 && (
+                            <span className="image-number bg-danger">
+                              {JSON.stringify(post.fileUrls.length)}
+                            </span>
+                          )}
 
-                    <LazyLoadImage
-                      style={{ minHeight: "120px" }}
-                      className="img-fluid"
-                      alt="p4u-image"
-                      effect="blur"
-                      src={post.avatarUrl ?? post.fileUrls[0]}
-                    />
-                  </div>
+                          <LazyLoadImage
+                            style={{
+                              minHeight: "120px",
+                              height: `${
+                                newHeight === adjustedWidth || !newHeight
+                                  ? ""
+                                  : newHeight + "px"
+                              }`,
+                            }}
+                            className="img-fluid"
+                            alt="p4u-image"
+                            effect="blur"
+                            src={post.avatarPost?.url ?? post.fileUrls[0]}
+                          />
+                        </div>
+                      );
+                    }}
+                  />
                   {post.title && <span className="title">{post.title}</span>}
                 </a>
 

@@ -19,4 +19,13 @@ const resizeFile = (file, maxWidth = 840, maxHeight = 840, quality = 100) => {
   });
 };
 
-export { resizeFile };
+const getNewHeightFromOriginalFile = (
+  adjustedWidth,
+  originWidth = 1,
+  originHeight = 1
+) => {
+  if (!adjustedWidth) return null;
+  return (adjustedWidth * originHeight) / originWidth;
+};
+
+export { resizeFile, getNewHeightFromOriginalFile };
