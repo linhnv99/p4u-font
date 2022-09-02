@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "../../components/Layout/Modal";
 import { useHistory } from "react-router-dom";
 import Router from "../../routes/router";
@@ -6,144 +6,152 @@ import Toaster from "../../utils/toaster";
 import services from "../../api/services";
 import Auth from "../../api/auth";
 import { getErrorMessage } from "../../errors";
+import { Formik, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function Login({ isShow, onClose }) {
   const history = useHistory();
-  const [error, setError] = useState();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const handleLogin = async (
+    { username, password },
+    { setSubmitting, resetForm }
+  ) => {
+    try {
+      const response = await services.login({
+        username,
+        password,
+      });
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    if (!validateUsername(username) || !validatePassword(password)) {
-      return;
-    }
-
-    const fetchData = async () => {
-      try {
-        const response = await services.login({
-          username,
-          password,
-        });
-
-        if (response.code === 200) {
-          Auth.setToken(response.data.accessToken);
-          history.push(Router.home);
-          window.location.reload();
-        }
-      } catch (error) {
-        Toaster.error(getErrorMessage(error.data.code), 2500);
+      if (response.code === 200) {
+        Auth.setToken(response.data.accessToken);
+        history.push(Router.home);
+        window.location.reload();
+        resetForm();
       }
-    };
-    fetchData();
+    } catch (error) {
+      Toaster.error(getErrorMessage(error.data.code), 2500);
+      setSubmitting(false);
+    }
   };
 
-  const validateUsername = (username) => {
-    const usernameTrim = username.trim();
-    if (!usernameTrim) {
-      setError({ ...error, username: "Username là bắt buộc." });
-      return false;
-    }
-    setError({ ...error, username: "" });
-    setUsername(usernameTrim);
-    return true;
-  };
-
-  const validatePassword = (password) => {
-    const passwordTrim = password.trim();
-    if (!passwordTrim) {
-      setError({ ...error, password: "Password là bắt buộc." });
-      return false;
-    }
-    setError({ ...error, password: "" });
-    setPassword(passwordTrim);
-    return true;
-  };
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .trim()
+      .required("Tên đăng nhập không được để trống."),
+    password: Yup.string().trim().required("Mật khẩu không được để trống."),
+  });
 
   return (
     <Modal isShow={isShow} onClose={onClose} title="Log in to your account">
-      <form onSubmit={handleLogin}>
-        <div className="form mb-4">
-          <input
-            type="username"
-            placeholder="Username"
-            className="form-control"
-            defaultValue={username}
-            onChange={(e) => validateUsername(e.target.value)}
-          />
-          {error && error.username && (
-            <small className="d-block mt-1 text-danger">{error.username}</small>
-          )}
-        </div>
+      <Formik
+        initialValues={{
+          username: "",
+          password: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+        render={({
+          values,
+          handleChange,
+          isSubmitting,
+          handleSubmit,
+          handleBlur,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <div className="form mb-4">
+              <input
+                type="text"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Tên đăng nhập"
+                className="form-control"
+              />
+              <ErrorMessage
+                name="username"
+                component="div"
+                className="d-block mt-1 text-danger"
+              />
+            </div>
 
-        <div className="form mb-4">
-          <input
-            type="password"
-            placeholder="Password"
-            className="form-control"
-            defaultValue={password}
-            onChange={(e) => validatePassword(e.target.value)}
-          />
-          {error && error.password && (
-            <small className="d-block mt-1 text-danger">{error.password}</small>
-          )}
-        </div>
+            <div className="form mb-4">
+              <input
+                type="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Mật khẩu"
+                className="form-control"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="d-block mt-1 text-danger"
+              />
+            </div>
 
-        <div className="row mb-4">
-          <div className="col d-flex justify-content-center">
-            <a
-              href="/forgot-password"
-              onClick={(e) => {
-                e.preventDefault();
-                history.push(Router.forgotPassword);
-              }}
-            >
-              Forgot password?
-            </a>
-          </div>
-        </div>
-
-        <button type="submit" className="btn btn-primary btn-block mb-4">
-          Sign in
-        </button>
-
-        <div className="text-center">
-          <p>
-            Not a member?{" "}
-            <a
-              href="/sign-up"
-              onClick={(e) => {
-                e.preventDefault(), history.push(Router.signUp);
-              }}
-            >
-              Sign up
-            </a>{" "}
-            {!isShow && (
-              <>
-                /{" "}
+            <div className="row mb-4">
+              <div className="col d-flex justify-content-center">
                 <a
-                  href="/"
+                  href="/forgot-password"
                   onClick={(e) => {
-                    e.preventDefault(), history.push(Router.home);
+                    e.preventDefault();
+                    history.push(Router.forgotPassword);
                   }}
                 >
-                  Home
-                </a>{" "}
-              </>
-            )}
-            /{" "}
-            <a
-              href="/verify-account"
-              onClick={(e) => {
-                e.preventDefault(), history.push(Router.verifyAccount);
-              }}
+                  Quên mật khẩu?
+                </a>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary btn-block mb-4"
+              disabled={isSubmitting}
             >
-              Verify Account
-            </a>
-          </p>
-        </div>
-      </form>
+              Đăng nhập
+            </button>
+
+            <div className="text-center">
+              <p>
+                Chưa có tài khoản?{" "}
+                <a
+                  href="/sign-up"
+                  onClick={(e) => {
+                    e.preventDefault(), history.push(Router.signUp);
+                  }}
+                >
+                  Đăng ký
+                </a>{" "}
+                {!isShow && (
+                  <>
+                    /{" "}
+                    <a
+                      href="/"
+                      onClick={(e) => {
+                        e.preventDefault(), history.push(Router.home);
+                      }}
+                    >
+                      Trang chủ
+                    </a>{" "}
+                  </>
+                )}
+                /{" "}
+                <a
+                  href="/verify-account"
+                  onClick={(e) => {
+                    e.preventDefault(), history.push(Router.verifyAccount);
+                  }}
+                >
+                  Xác thực tài khoản!
+                </a>
+              </p>
+            </div>
+          </form>
+        )}
+      />
     </Modal>
   );
 }

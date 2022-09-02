@@ -13,8 +13,9 @@ function CreatePost() {
   const [title, setTitle] = useState(null);
   const [scope, setScope] = useState("PUBLIC");
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
   const [fileUploads, setFileUploads] = useState({
     no_image: "/assets/img/no-image.png",
     files: [],
@@ -23,14 +24,11 @@ function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (!validateTitle(title) || !validateContent(content)) {
-    //   return;
-    // }
     if (!fileUploads.files.length) {
       setError("Vui lòng chọn ảnh tải lên.");
       return;
     }
-    setIsLoading(true);
+    setIsUploading(true);
     const fetchData = async () => {
       try {
         const formData = new FormData();
@@ -52,7 +50,7 @@ function CreatePost() {
           setIsSuccess(true);
         }
       } catch (error) {
-        setIsLoading(false);
+        setIsUploading(false);
         setIsSuccess(false);
         Toaster.error(getErrorMessage(error.data.code));
       }
@@ -60,27 +58,8 @@ function CreatePost() {
     fetchData();
   };
 
-  // const validateTitle = (title) => {
-  //   if (!title) {
-  //     setError({ ...error, title: "Tiêu đề không được để trống." });
-  //     return false;
-  //   }
-  //   setError({ ...error, title: "" });
-  //   setTitle(title);
-  //   return true;
-  // };
-
-  // const validateContent = (content) => {
-  //   if (!content) {
-  //     setError({ ...error, content: "Nội dung không được để trống." });
-  //     return false;
-  //   }
-  //   setError({ ...error, content: "" });
-  //   setContent(content);
-  //   return true;
-  // };
-
   const uploadItem = async (e) => {
+    setIsResizing(true);
     try {
       let files = e.target.files;
       const fileResult = [];
@@ -93,14 +72,21 @@ function CreatePost() {
         };
         fileResult.push(file);
       }
+      if (fileResult.length > 10) {
+        setError("Tối đa tải 10 ảnh 1 lần.");
+        setIsResizing(false);
+        return;
+      }
       setFileUploads({
         ...fileUploads,
         files: [...fileUploads.files, ...fileResult],
         avatar: fileResult[0].file.name,
       });
       setError(null);
+      setIsResizing(false);
     } catch (e) {
       Toaster.error(e);
+      setIsResizing(false);
     }
   };
 
@@ -134,11 +120,12 @@ function CreatePost() {
 
   useEffect(resizeTextArea, [content]);
 
+  console.log(isResizing);
   return (
     <>
-      {isLoading && (
+      {isUploading && (
         <Progress
-          isLoading={isLoading}
+          isLoading={isUploading}
           isSuccess={isSuccess}
           urlRedirect={Router.home}
         />
@@ -147,7 +134,12 @@ function CreatePost() {
         <div className="post p-4 p-md-5">
           <form onSubmit={handleSubmit}>
             <div className="header">
-              <button className="btn btn-primary  float-end">Lưu</button>
+              <button
+                disabled={isResizing}
+                className="btn btn-primary float-end"
+              >
+                Lưu
+              </button>
             </div>
             <div className="clearfix mb-4"></div>
             <div className="row">
@@ -177,9 +169,9 @@ function CreatePost() {
                           alt="No Image"
                         />
                         {error && (
-                          <small className="d-block mt-1 text-danger text-center">
+                          <span className="d-block mt-1 text-danger text-center">
                             {error}
-                          </small>
+                          </span>
                         )}
                       </li>
                     ) : (
@@ -212,6 +204,14 @@ function CreatePost() {
                       ))
                     )}
                   </ul>
+                  {isResizing && (
+                    <div className="progress mx-5">
+                      <span
+                        className="progress-bar progress-bar-striped progress-bar-animated"
+                        style={{ width: "100%" }}
+                      ></span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -225,11 +225,6 @@ function CreatePost() {
                       defaultValue={title}
                       onChange={(e) => setTitle(e.target.value.trim())}
                     />
-                    {/* {error && error.title && (
-                        <small className="d-block mt-1 text-danger">
-                          {error.title}
-                        </small>
-                      )} */}
                   </div>
                   <div className="form mb-4">
                     <textarea
@@ -241,18 +236,12 @@ function CreatePost() {
                       defaultValue={content}
                       onChange={(e) => setContent(e.target.value.trim())}
                     />
-                    {/* {error && error.content && (
-                        <small className="d-block mt-1 text-danger">
-                          {error.content}
-                        </small>
-                      )} */}
                   </div>
                   <div className="form mb-4">
                     <select
                       className="form form-select"
                       onChange={(e) => setScope(e.target.value)}
                     >
-                      {/* <option value={scope} selected>Đối tượng</option> */}
                       <option value="PUBLIC">Công khai</option>
                       <option value="FRIEND">Bạn bè</option>
                       <option value="PRIVATE">Chỉ mình tôi</option>

@@ -71,7 +71,7 @@ function SignUp({ isShow, onClose }) {
           handleSubmit,
           handleBlur,
         }) => (
-          <form onSubmit={handleSignUp}>
+          <form onSubmit={handleSubmit}>
             {notifySuccess && (
               <div className="alert alert-success text-center">
                 {notifySuccess}
@@ -146,15 +146,14 @@ function SignUp({ isShow, onClose }) {
             <button
               type="submit"
               className="btn btn-primary btn-block mb-4"
-              onClick={handleSubmit}
               disabled={isSubmitting}
             >
-              Sign up
+              Đăng ký
             </button>
 
             <div className="text-center">
               <p>
-                Have an account?{" "}
+                Đã có tài khoản?{" "}
                 <a
                   href="/login"
                   onClick={(e) => {
@@ -162,7 +161,7 @@ function SignUp({ isShow, onClose }) {
                     history.push(Router.login);
                   }}
                 >
-                  Login
+                  Đăng nhập
                 </a>{" "}
                 {!isShow && (
                   <>
@@ -174,7 +173,7 @@ function SignUp({ isShow, onClose }) {
                         history.push(Router.home);
                       }}
                     >
-                      Home
+                      Trang chủ
                     </a>
                   </>
                 )}

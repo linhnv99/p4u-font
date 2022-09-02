@@ -6,12 +6,13 @@ import Auth from "../../api/auth";
 import Router from "../../routes/router";
 import Toaster from "../../utils/toaster";
 import { getErrorMessage } from "../../errors";
+import { Formik, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function VerifyAccount({ location: { search } }) {
   const history = useHistory();
-  const [error, setError] = useState();
   const [errorToken, setErrorToken] = useState();
-  const [email, setEmail] = useState();
+  const [notifySuccess, setNotifySuccess] = useState("");
   const { token } = queryString.parse(search);
 
   useEffect(() => {
@@ -29,36 +30,24 @@ function VerifyAccount({ location: { search } }) {
     }
   }, []);
 
-  const handleGetNewOTP = (e) => {
-    e.preventDefault();
-    if (!validateEmail(email)) {
-      return;
-    }
-
-    const fetchData = async () => {
-      try {
-        const response = await services.requestOTP({ email });
-        if (response.code === 200) {
-          Toaster.info("Vui lòng kiểm tra email của bạn để hoàn tất xác thực!");
-        }
-      } catch (error) {
-        Toaster.error(getErrorMessage(error.data.code), 2000);
+  const handleGetNewOTP = async ({ email }, { setSubmitting, resetForm }) => {
+    try {
+      const response = await services.requestOTP({ email });
+      if (response.code === 200) {
+        setNotifySuccess(
+          "Vui lòng kiểm tra email của bạn để hoàn tất xác thực tài khoản."
+        );
+        resetForm();
       }
-    };
-
-    fetchData();
-  };
-
-  const validateEmail = (email) => {
-    const emailTrim = email.trim();
-    if (!emailTrim) {
-      setError("Email là bắt buộc.");
-      return false;
+    } catch (error) {
+      Toaster.error(getErrorMessage(error.data.code));
+      setSubmitting(false);
     }
-    setError(null);
-    setEmail(emailTrim);
-    return true;
   };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().trim().required("Email không được để trống."),
+  });
 
   return (
     <div className="container">
@@ -68,62 +57,86 @@ function VerifyAccount({ location: { search } }) {
             <div className="modal-content" style={{ marginTop: "20vh" }}>
               <div className="content">
                 <div className="body">
-                  <h2 className="title">Verify Account</h2>
+                  <h2 className="title">Xác thực tài khoản</h2>
                   {errorToken && (
-                    <div className="alert alert-danger text-center">{errorToken}</div>
+                    <div className="alert alert-danger text-center">
+                      {errorToken}
+                    </div>
                   )}
-                  <form
-                    className="mt-4"
-                    style={{ maxwidth: "470px" }}
+                  {notifySuccess && (
+                    <div className="alert alert-success text-center">
+                      {notifySuccess}
+                    </div>
+                  )}
+                  <Formik
+                    initialValues={{
+                      email: "",
+                    }}
+                    validationSchema={validationSchema}
                     onSubmit={handleGetNewOTP}
-                  >
-                    <div className="form mb-4">
-                      <input
-                        type="email"
-                        placeholder="Email"
-                        className="form-control"
-                        name="email"
-                        defaultValue={email}
-                        onChange={(e) => validateEmail(e.target.value)}
-                      />
-                      {error && (
-                        <small className="d-block mt-1 text-danger">
-                          {error}
-                        </small>
-                      )}
-                    </div>
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-block mb-4"
-                    >
-                      Get new otp
-                    </button>
+                    render={({
+                      values,
+                      handleChange,
+                      isSubmitting,
+                      handleSubmit,
+                      handleBlur,
+                    }) => (
+                      <form
+                        className="mt-4"
+                        style={{ maxwidth: "470px" }}
+                        onSubmit={handleSubmit}
+                      >
+                        <div className="form mb-4">
+                          <input
+                            type="email"
+                            placeholder="Email"
+                            className="form-control"
+                            name="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                          <ErrorMessage
+                            name="email"
+                            component="div"
+                            className="d-block mt-1 text-danger"
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          className="btn btn-primary btn-block mb-4"
+                          disabled={isSubmitting}
+                        >
+                          Xác thực tài khoản
+                        </button>
 
-                    <div className="text-center">
-                      <p>
-                        Have an account?{" "}
-                        <a
-                          href="/login"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            history.push(Router.login);
-                          }}
-                        >
-                          Login
-                        </a>{" "}
-                        /{" "}
-                        <a
-                          href="/"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            history.push(Router.home);
-                          }}
-                        >
-                          Home
-                        </a>
-                      </p>
-                    </div>
-                  </form>
+                        <div className="text-center">
+                          <p>
+                            Đã có tài khoản?{" "}
+                            <a
+                              href="/login"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                history.push(Router.login);
+                              }}
+                            >
+                              Đăng nhập
+                            </a>{" "}
+                            /{" "}
+                            <a
+                              href="/"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                history.push(Router.home);
+                              }}
+                            >
+                              Trang chủ
+                            </a>
+                          </p>
+                        </div>
+                      </form>
+                    )}
+                  />
                 </div>
               </div>
             </div>
