@@ -1,6 +1,6 @@
 const API = {
   getAllNewPosts: (params = "") => ({
-    path: "/posts" + params,
+    path: "/posts?size=20",
     method: "get",
   }),
   getProfile: () => ({
