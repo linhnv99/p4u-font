@@ -60,15 +60,17 @@
   color: #fff;
   z-index: 2;
   font-weight: bold;
-  padding: .5rem .8rem;
+  padding: .2rem .6rem;
   border-radius: 40%;
-  display: none;
+  background-color: rgba(0, 0, 0, .2);
+  font-size: 12px;
+  /* display: none; */
 }
 
 .post-content .image:hover>.overlay,
-.post-content .image:hover .image-number {
+/* .post-content .image:hover .image-number {
   display: block;
-}
+} */
 
 .avt {
   border: 1px solid #f1f1f1;

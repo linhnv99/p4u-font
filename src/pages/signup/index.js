@@ -64,7 +64,7 @@ function SignUp({ isShow, onClose }) {
   };
 
   const validateUsername = (username) => {
-    const regex = /^[a-zA-Z0-9_]{6,}/;
+    const regex = /^[a-zA-Z0-9_]{6,}$/;
     const usernameTrim = username.trim();
     if (!usernameTrim) {
       setError({ ...error, username: "Username là bắt buộc." });
@@ -73,7 +73,7 @@ function SignUp({ isShow, onClose }) {
     if (usernameTrim.length < 6 || !regex.test(usernameTrim)) {
       setError({
         ...error,
-        username: "Username phải lớn hơn 6 và là kí tự thường, số.",
+        username: "Username phải lớn hơn 6 và là kí tự thường, số. Không bao gồm dấu cách.",
       });
       return false;
     }

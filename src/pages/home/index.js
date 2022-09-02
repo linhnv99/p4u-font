@@ -21,7 +21,7 @@ function Home() {
   const DEFAULT_SIZE = 20;
   const { loading, error, data } = useAxios(API.getAllNewPosts());
   const [posts, setPosts] = useState([]);
-  // const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(2);
 
   if (error) {
@@ -45,7 +45,7 @@ function Home() {
 
       setPosts([...posts, ...data]);
       if (data.length == 0 || data.length < DEFAULT_SIZE) {
-        // setHasMore(false);
+        setHasMore(false);
         return;
       }
       setPage(page + 1);
@@ -65,13 +65,14 @@ function Home() {
     initLayout: false,
     transitionDuration: 0,
   };
+  console.log(page)
 
   return (
     <InfiniteScroll
       dataLength={posts.length}
       next={fetchData}
-      // hasMore={hasMore}
-      loader={<Loader />}
+      hasMore={hasMore}
+      // loader={<Loader />}
       className="pt-2 pb-5 mt-2 grid-center overflow-hidden"
     >
       <Masonry elementType={"ul"} options={masonryOptions}>
@@ -106,7 +107,7 @@ function Home() {
                         <div className="image">
                           <div className="overlay"></div>
                           {post.fileUrls.length > 1 && (
-                            <span className="image-number bg-danger">
+                            <span className="image-number ">
                               {JSON.stringify(post.fileUrls.length)}
                             </span>
                           )}
