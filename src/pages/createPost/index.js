@@ -52,6 +52,7 @@ function CreatePost() {
       } catch (error) {
         setIsUploading(false);
         setIsSuccess(false);
+        console.log(error);
         Toaster.error(getErrorMessage(error.data.code));
       }
     };
@@ -84,8 +85,9 @@ function CreatePost() {
       });
       setError(null);
       setIsResizing(false);
-    } catch (e) {
-      Toaster.error(e);
+    } catch (error) {
+      console.log(error);
+      Toaster.error(error);
       setIsResizing(false);
     }
   };
@@ -120,7 +122,6 @@ function CreatePost() {
 
   useEffect(resizeTextArea, [content]);
 
-  console.log(isResizing);
   return (
     <>
       {isUploading && (

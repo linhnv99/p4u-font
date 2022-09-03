@@ -8,6 +8,7 @@ import userActions from "../../store/actions/userActions";
 import { ToastContainer } from "react-toastify";
 import Auth from "../../api/auth";
 import "react-toastify/dist/ReactToastify.css";
+import Avatar from "../Avatar";
 
 const DefaultLayout = ({ children }) => {
   const history = useHistory();
@@ -85,11 +86,11 @@ const DefaultLayout = ({ children }) => {
                 </div> */}
                 <div className="dropdown">
                   <a className="dropdown-toggle d-flex align-items-center hidden-arrow">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                      className="rounded-circle"
-                      height="35"
-                      alt="Black and White Portrait of a Man"
+                    <Avatar
+                      width={35}
+                      height={35}
+                      avatarPath={auth.me?.avatar}
+                      className="rounded-circle avt"
                     />
                   </a>
                   <ul className="dropdown-menu dropdown-menu-end">

@@ -238,7 +238,7 @@ code {
 }
 
 .Toastify__toast-container--top-right {
-  z-index: 9999999!important;
+  z-index: 9999999 !important;
 }
 
 /* ================================================================= */
@@ -315,11 +315,14 @@ code {
 .main-content {
   height: auto;
   min-height: 100vh;
-  padding: 45px 0;
+  padding: 20px 0;
+
 }
 
-.bg-gray {
-  background-color: #f1f1f1;
+@media (min-width: 768px) {
+  .main-content {
+    padding: 45px 0;
+  }
 }
 
 .post {

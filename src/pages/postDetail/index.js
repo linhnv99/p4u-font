@@ -89,7 +89,6 @@ function PostDetail({
           data: [response.data, ...comments.data],
           totalRecord: comments.totalRecord + 1,
         });
-        console.log(response.data);
         resetText("");
       } catch (error) {
         Toaster.error(getErrorMessage(error.data.code ?? error.status));

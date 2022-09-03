@@ -65,7 +65,6 @@ function Home() {
     initLayout: false,
     transitionDuration: 0,
   };
-  console.log(page)
 
   return (
     <InfiniteScroll
