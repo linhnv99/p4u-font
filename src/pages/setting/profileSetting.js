@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from "react";
+import React, { forwardRef, useState } from "react";
 import Toaster from "../../utils/toaster";
 import services from "../../api/services";
 import { getErrorMessage } from "../../errors";
@@ -16,7 +16,7 @@ export const ProfileSetting = forwardRef(({ user }, ref) => {
     try {
       const response = await services.updateProfile(values);
       if (response.code === 200) {
-        Toaster.info("Thay đổi hồ sơ cá nhân thành công.", 3000);
+        Toaster.success("Thay đổi hồ sơ cá nhân thành công.", 3000);
       }
     } catch (error) {
       console.log(error);
@@ -50,7 +50,6 @@ export const ProfileSetting = forwardRef(({ user }, ref) => {
     name: Yup.string().trim().required("Tên của bạn không được để trống."),
   });
 
-  console.log(avatar);
   return (
     <div className="settings-detail" ref={ref}>
       <div className="title">Hồ sơ cá nhân</div>

@@ -1,4 +1,22 @@
+import React, { useRef } from "react";
+import { getErrorMessage } from "../../errors";
+import { useAxios } from "../../hooks/useAxios";
+import Spinner from "../../components/Spinner";
+import API from "../../api";
+import Toaster from "../../utils/toaster";
+import Avatar from "../../components/Avatar";
+
 function Profile() {
+  const { loading, error, data: user } = useAxios(API.getProfile());
+
+  if (error) {
+    Toaster.error(getErrorMessage(error.data.code));
+    return;
+  }
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="main-content">
       <div className="profile">
@@ -6,22 +24,24 @@ function Profile() {
           <ul>
             <li>
               <div className="avatar">
-                <img
-                  className="img-fluid"
-                  src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg"
+                <Avatar
+                  width={156}
+                  height={156}
+                  className="rounded-circle avt me-3"
+                  avatarPath={user.avatar}
                 />
               </div>
             </li>
             <li>
-              <h3>Nguyễn Viết Linh</h3>
+              <h3>{user.name}</h3>
             </li>
             <li>
-              <p>@linhnguyen</p>
+              <p>@{user.username}</p>
             </li>
             <li>
               <div className="follows mt-1 mb-2">
                 <a href="">0 Followers</a>
-                <a href="">0 Followings</a>
+                <a href="">90.000 Followings</a>
               </div>
             </li>
             <li>
@@ -39,40 +59,11 @@ function Profile() {
               <div className="row">
                 <div className="col-12 col-md-3">
                   <div className="item">
-                    <img className="img-fluid" src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg" />
-                    <div className="thumbs">
-                      
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12 col-md-3">
-                  <div className="item">
-                    <img className="img-fluid" src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg" />
-                  </div>
-                </div> 
-                <div className="col-12 col-md-3">
-                  <div className="item">
-                    <img className="img-fluid" src="https://i.pinimg.com/originals/05/29/1d/05291d9d022829d99eb98bd3fc119f2f.jpg" />
-                  </div>
-                </div>
-                <div className="col-12 col-md-3">
-                  <div className="item">
-                    <img className="img-fluid" src="https://drive.google.com/uc?export=view&id=1vGqtSZ7A2Ohe_FSDc_dvKSmRPg6okVt0" />
-                  </div>
-                </div>
-                <div className="col-12 col-md-3">
-                  <div className="item">
-                    <img className="img-fluid" src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg" />
-                  </div>
-                </div>
-                <div className="col-12 col-md-3">
-                  <div className="item">
-                    <img className="img-fluid" src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg" />
-                  </div>
-                </div>
-                <div className="col-12 col-md-3">
-                  <div className="item">
-                    <img className="img-fluid" src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg" />
+                    <img
+                      className="img-fluid"
+                      src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg"
+                    />
+                    <div className="thumbs"></div>
                   </div>
                 </div>
               </div>

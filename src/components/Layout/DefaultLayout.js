@@ -95,15 +95,26 @@ const DefaultLayout = ({ children }) => {
                   </a>
                   <ul className="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a className="dropdown-item" href="/profile">
+                      <a
+                        className="dropdown-item"
+                        href="/profile"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push(Router.profile);
+                        }}
+                      >
                         My profile
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/settings#account" onClick={e => {
-                        e.preventDefault();
-                        history.push(Router.settings)
-                      }}>
+                      <a
+                        className="dropdown-item"
+                        href="/settings#account"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push(Router.settings);
+                        }}
+                      >
                         Settings
                       </a>
                     </li>
