@@ -7,6 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #fff
+}
+
 a,
 body,
 div,
@@ -317,6 +327,10 @@ code {
   min-height: 100vh;
   padding: 20px 0;
 
+}
+
+.bg-gray {
+  background-color: #f1f1f1;
 }
 
 @media (min-width: 768px) {

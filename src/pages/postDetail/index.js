@@ -209,12 +209,14 @@ function PostDetail({
                     .map((comment, key) => {
                       return (
                         <div className="comment" key={key}>
-                          <Avatar
-                            avatarPath={comment.userAvatarPath}
-                            height={35}
-                            width={35}
-                            className="rounded-circle avt me-2"
-                          />
+                          <div>
+                            <Avatar
+                              avatarPath={comment.userAvatarPath}
+                              height={35}
+                              width={35}
+                              className="rounded-circle avt me-2"
+                            />
+                          </div>
                           <div className="w-100">
                             <div className="cmt-content">
                               <p className="user-comment">
@@ -263,14 +265,16 @@ function PostDetail({
                                       return (
                                         <li key={key}>
                                           <div className="content">
-                                            <Avatar
-                                              avatarPath={
-                                                subComment.userAvatarPath
-                                              }
-                                              height={35}
-                                              width={35}
-                                              className="rounded-circle avt me-2"
-                                            />
+                                            <div>
+                                              <Avatar
+                                                avatarPath={
+                                                  subComment.userAvatarPath
+                                                }
+                                                height={35}
+                                                width={35}
+                                                className="rounded-circle avt me-2"
+                                              />
+                                            </div>
                                             <div className="">
                                               <div className="cmt-content">
                                                 <p className="user-comment">
@@ -309,6 +313,7 @@ function PostDetail({
                             {/* end subComment */}
                             {replyCommentId === comment.id && (
                               <Comment
+                                avatar={comment.userAvatarPath}
                                 commentId={comment.id}
                                 onSubmit={handleSubmitSubComment}
                                 onHideReplySubComment={() =>
@@ -321,7 +326,10 @@ function PostDetail({
                       );
                     })}
               </div>
-              <Comment onSubmit={handleSubmitComment} />
+              <Comment
+                avatar={comments.data[0]?.userAvatarPath}
+                onSubmit={handleSubmitComment}
+              />
             </div>
           </div>
         </div>

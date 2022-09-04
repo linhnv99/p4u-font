@@ -100,7 +100,10 @@ const DefaultLayout = ({ children }) => {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="/settings#account" onClick={e => {
+                        e.preventDefault();
+                        history.push(Router.settings)
+                      }}>
                         Settings
                       </a>
                     </li>

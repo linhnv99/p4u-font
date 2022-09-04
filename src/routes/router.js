@@ -8,6 +8,7 @@ const routes = {
   verifyAccount: "/verify-account",
   forgotPassword: "/forgot-password",
   postDetail: "/post/:id",
+  settings: "/settings"
 };
 
 // format route: /route/:id => route/1

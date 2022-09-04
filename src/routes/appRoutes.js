@@ -7,6 +7,7 @@ import Profile from "../pages/profile";
 import VerifyAccount from "../pages/verifyAccount";
 import ForgotPassword from "../pages/forgotPassword";
 import PostDetail from "../pages/postDetail";
+import Setting from "../pages/setting";
 
 const appRoutes = [
   {
@@ -64,6 +65,12 @@ const appRoutes = [
     notProtected: true,
     exact: true,
     component: PostDetail,
+  },
+  {
+    description: "Settings",
+    path: Router.settings,
+    exact: true,
+    component: Setting,
   },
 ];
 

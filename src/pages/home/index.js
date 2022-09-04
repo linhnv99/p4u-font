@@ -13,7 +13,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "../../components/Loader";
 import { SizeMe } from "react-sizeme";
 import { getNewHeightFromOriginalFile } from "../../utils/imageUtils";
-
+import Avatar from "../../components/Avatar";
 import "./index.css";
 
 function Home() {
@@ -134,17 +134,13 @@ function Home() {
 
                 <a className="user-info" href="#">
                   <div className="detail">
-                    <img
+                    <Avatar
+                      avatarPath={post.user.avatar}
+                      height={35}
+                      width={35}
                       className={`rounded-circle ${
                         post.user.avatar ? "" : "avt"
                       }`}
-                      height="35"
-                      width="35"
-                      src={
-                        post.user.avatar
-                          ? post.user.avatar
-                          : "/assets/img/avt-default.jpeg"
-                      }
                     />
                     <p>{post.user.name ?? post.user.username}</p>
                   </div>

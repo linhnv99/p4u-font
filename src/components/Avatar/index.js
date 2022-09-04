@@ -5,6 +5,7 @@ function Avatar({ avatarPath, height, width, className }) {
       height={height}
       width={width}
       className={className}
+      style={{ objectFit: "cover" }}
     />
   );
 }

@@ -155,6 +155,7 @@ function CreatePost() {
                           onChange={(e) => uploadItem(e)}
                           ref={uploadRef}
                           className="fileInput"
+                          accept="image/jpeg, image/gif, image/png, image/jpg"
                           multiple
                         />
                       </label>

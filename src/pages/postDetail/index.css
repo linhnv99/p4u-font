@@ -178,6 +178,7 @@
   font-weight: 600;
   font-size: 13px;
 }
+
 .reply-number>b:hover {
   text-decoration: underline;
 }
@@ -191,5 +192,6 @@
 
 .load-more:hover {
   cursor: pointer;
-  text-decoration: underline;;
+  text-decoration: underline;
+  ;
 }

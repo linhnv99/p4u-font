@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Avatar from "../Avatar";
 import "./index.css";
 
 function Comment({ avatar, onSubmit, onHideReplySubComment, commentId }) {
@@ -22,12 +23,14 @@ function Comment({ avatar, onSubmit, onHideReplySubComment, commentId }) {
       className="box-input-comment"
       onSubmit={(e) => onSubmit(e, content, setContent, commentId)}
     >
-      <img
-        src={avatar ? avatar : "/assets/img/avt-default.jpeg"}
-        height="50"
-        width="50"
-        className="rounded-circle avt me-2"
-      />
+      <div>
+        <Avatar
+          width={50}
+          height={50}
+          avatarPath={avatar}
+          className="rounded-circle avt me-2"
+        />
+      </div>
       <div className="input-comment">
         <textarea
           className="input-text"
