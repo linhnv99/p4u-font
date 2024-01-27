@@ -1,5 +1,5 @@
 const API = {
-  getAllNewPosts: (params = "") => ({
+  getAllPost: (params = "") => ({
     path: "/posts?size=20",
     method: "get",
   }),

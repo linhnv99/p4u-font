@@ -1,18 +1,36 @@
-import React, { useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { getErrorMessage } from "../../errors";
 import { useAxios } from "../../hooks/useAxios";
 import Spinner from "../../components/Spinner";
 import API from "../../api";
 import Toaster from "../../utils/toaster";
 import Avatar from "../../components/Avatar";
+import Router from "../../routes/router";
+import services from "../../api/services";
 
 function Profile() {
+  const history = useHistory();
   const { loading, error, data: user } = useAxios(API.getProfile());
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await services.getAllPost({ username: user.username });
+      setPosts(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (error) {
     Toaster.error(getErrorMessage(error.data.code));
     return;
   }
+
   if (loading) {
     return <Spinner />;
   }
@@ -41,11 +59,13 @@ function Profile() {
             <li>
               <div className="follows mt-1 mb-2">
                 <a href="">0 Followers</a>
-                <a href="">90.000 Followings</a>
+                <a href="">0 Followings</a>
               </div>
             </li>
             <li>
-              <button>Edit profile</button>
+              <button onClick={() => history.push(Router.settings)}>
+                Edit profile
+              </button>
             </li>
           </ul>
         </div>
@@ -57,15 +77,20 @@ function Profile() {
             </div>
             <div className="collections">
               <div className="row">
-                <div className="col-12 col-md-3">
-                  <div className="item">
-                    <img
-                      className="img-fluid"
-                      src="https://image-us.24h.com.vn/upload/1-2022/images/2022-03-16/baukrysie_275278910_3174792849424333_1380029197326773703_n-1647427653-670-width1440height1800.jpg"
-                    />
-                    <div className="thumbs"></div>
-                  </div>
-                </div>
+                {posts.length &&
+                  posts.map((post, index) => {
+                    return (
+                      <div className="col-12 col-md-3" key={index}>
+                        <div className="item">
+                          <img
+                            className="img-fluid"
+                            src={`${post.avatarPath || post.fileUrls[0]}`}
+                          />
+                          <div className="thumbs"></div>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>

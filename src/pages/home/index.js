@@ -37,7 +37,7 @@ function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await services.getAllNewPosts({
+      const response = await services.getAllPost({
         page,
         size: DEFAULT_SIZE,
       });

@@ -3,6 +3,7 @@ const initState = {
   me: {},
   error: "",
   isLogin: false,
+  isLoading: true
 };
 const userReducers = (state = initState, action) => {
   const { type, payload } = action;
@@ -11,7 +12,8 @@ const userReducers = (state = initState, action) => {
       return {
         ...state,
         me: payload,
-        isLogin: true
+        isLogin: true,
+        isLoading: false
       };
     case UserConst.GET_ME_FAIL:
       return {

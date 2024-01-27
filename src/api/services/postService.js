@@ -7,9 +7,9 @@ const createPost = (args) =>
     },
   });
 
-const getAllNewPosts = (params) => AxiosInstance.get("/posts", { params });
+const getAllPost = (params) => AxiosInstance.get("/posts", { params });
 
 export const postService = {
   createPost,
-  getAllNewPosts,
+  getAllPost,
 };
